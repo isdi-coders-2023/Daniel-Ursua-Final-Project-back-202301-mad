@@ -1,5 +1,5 @@
 import debug from 'debug';
-import { User } from '../../entities/user';
+import { protoUser, User } from '../../entities/user';
 import { Repo } from '../repo.interface';
 import { UserModel } from './users.mongo.model';
 
@@ -17,7 +17,7 @@ export class UsersMongoRepo implements Repo<User> {
   private constructor() {
     debug('Instantiate');
   }
-  async create(info: User): Promise<User> {
+  async create(info: protoUser): Promise<User> {
     debug('Create');
     const data = await UserModel.create(info);
     return data;
