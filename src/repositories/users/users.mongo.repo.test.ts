@@ -1,4 +1,4 @@
-import { User } from '../../entities/user';
+import { protoUser } from '../../entities/user';
 import { UserModel } from './users.mongo.model';
 import { UsersMongoRepo } from './users.mongo.repo';
 
@@ -6,7 +6,7 @@ jest.mock('./users.mongo.model.ts');
 const mockUser = {
   name: 'test',
   email: 'test',
-} as User;
+} as protoUser;
 describe('Given the users mongo repo', () => {
   const repo = UsersMongoRepo.getInstance();
 
