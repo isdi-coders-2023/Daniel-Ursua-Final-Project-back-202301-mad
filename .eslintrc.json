@@ -10,6 +10,12 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "overrides": [
+    {
+      "extends": ["xo-typescript"],
+      "files": [".ts", ".tsx"]
+    }
+  ],
   "plugins": ["@typescript-eslint"],
   "rules": {}
 }
