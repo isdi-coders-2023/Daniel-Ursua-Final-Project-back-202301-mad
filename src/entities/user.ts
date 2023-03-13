@@ -3,7 +3,7 @@ import { Plant } from './plant';
 export type User = {
   name: string;
   email: string;
-  password: string;
+  passwd: string;
   plantList: Plant[];
   myPlants: Plant[];
 };
