@@ -1,0 +1,21 @@
+{
+  "env": {
+    "es2021": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": ["xo", "plugin: typescript-eslint/parser/recommended", "prettier"],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module"
+  },
+  "overrides": [
+    {
+      "extends": ["xo-typescript"],
+      "files": [".ts", ".tsx"]
+    }
+  ],
+  "plugins": ["@typescript-eslint"],
+  "rules": {}
+}
