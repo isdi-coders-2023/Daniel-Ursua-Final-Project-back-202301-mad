@@ -32,6 +32,7 @@ export class UsersController {
       resp.json({
         token,
       });
+      debug('Login successful');
     } catch (error) {
       next(error);
     }
@@ -52,6 +53,7 @@ export class UsersController {
       resp.json({
         results: [data],
       });
+      debug('Register successful');
     } catch (error) {
       next(error);
     }
