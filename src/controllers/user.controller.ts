@@ -3,7 +3,7 @@ import createDebug from 'debug';
 import { User } from '../entities/user.js';
 import { Repo } from '../repositories/repo.interface.js';
 import { HTTPError } from '../errors/error.js';
-import { Auth, PayloadToken } from '../services/auth.js';
+import { Auth, TokenPayload } from '../services/auth.js';
 const debug = createDebug('WFP:controller:users');
 
 export class UsersController {
@@ -23,7 +23,7 @@ export class UsersController {
         throw new HTTPError(401, 'Unauthorized', 'Email not found');
       if (!(await Auth.compare(req.body.passwd, data[0].passwd)))
         throw new HTTPError(401, 'Unauthorized', 'Password not match');
-      const payload: PayloadToken = {
+      const payload: TokenPayload = {
         id: data[0].id,
         email: data[0].email,
       };

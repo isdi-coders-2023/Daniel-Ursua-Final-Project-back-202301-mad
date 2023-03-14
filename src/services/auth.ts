@@ -1,29 +1,27 @@
 import jwt from 'jsonwebtoken';
-import bcrypt from 'bcryptjs';
 import { config } from '../config.js';
+import bcrypt from 'bcryptjs';
 import { HTTPError } from '../errors/error.js';
-import createDebug from 'debug';
-const debug = createDebug('W7B:services:auth');
 
-debug('Loaded');
+const salt = 10;
 
-export interface PayloadToken extends jwt.JwtPayload {
+export interface TokenPayload extends jwt.JwtPayload {
   id: string;
   email: string;
 }
 
-const salt = 10;
-
 export class Auth {
-  static createJWT(payload: PayloadToken) {
+  static createJWT(payload: TokenPayload) {
     return jwt.sign(payload, config.jwtSecret as string);
   }
 
-  static verifyJWTGettingPayload(token: string) {
-    const result = jwt.verify(token, config.jwtSecret as string);
-    if (typeof result === 'string')
-      throw new HTTPError(498, 'Invalid token', result);
-    return result as PayloadToken;
+  static verifyJWT(token: string): TokenPayload {
+    const tokenInfo = jwt.verify(token, config.jwtSecret as string);
+
+    if (typeof tokenInfo === 'string')
+      throw new HTTPError(498, 'Invalid Token', tokenInfo);
+
+    return tokenInfo as TokenPayload;
   }
 
   static hash(value: string) {
