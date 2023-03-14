@@ -10,7 +10,6 @@ import {
 } from '../mocks/mockTest';
 import { HTTPError } from '../errors/error';
 import { Auth } from '../services/auth';
-import { exec } from 'child_process';
 
 const mockRepo = {
   create: jest.fn(),
@@ -65,7 +64,7 @@ describe('Given the user controller', () => {
       expect(mockRepo.search).toHaveBeenCalled();
     });
     test('If there is any user with that mail it should throw an error', async () => {
-      (mockRepo.search as jest.Mock).mockResolvedValue([]);
+      mockRepo.search.mockResolvedValue([]);
       await controller.login(mockReq, mockResp, mockNext);
 
       expect(mockNext).toHaveBeenCalledWith(
@@ -73,7 +72,7 @@ describe('Given the user controller', () => {
       );
     });
     test('If the password was incorrect then it should throw an error', async () => {
-      (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
+      mockRepo.search.mockResolvedValue(['test']);
       Auth.compare = jest.fn();
       (Auth.compare as jest.Mock).mockResolvedValue(false);
       await controller.login(mockReq, mockResp, mockNext);
@@ -83,7 +82,7 @@ describe('Given the user controller', () => {
       );
     });
     test('If the password was correct then it should return the resp.json', async () => {
-      (mockRepo.search as jest.Mock).mockResolvedValue(['test']);
+      mockRepo.search.mockResolvedValue(['test']);
       Auth.compare = jest.fn();
       Auth.createJWT = jest.fn();
       (Auth.compare as jest.Mock).mockResolvedValue(true);
