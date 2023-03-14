@@ -10,7 +10,6 @@ import {
 } from '../mocks/mockTest';
 import { HTTPError } from '../errors/error';
 import { Auth } from '../services/auth';
-import { response } from 'express';
 
 const mockRepo = {
   create: jest.fn(),
