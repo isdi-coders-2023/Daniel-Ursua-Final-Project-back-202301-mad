@@ -10,6 +10,7 @@ import {
 } from '../mocks/mockTest';
 import { HTTPError } from '../errors/error';
 import { Auth } from '../services/auth';
+import { response } from 'express';
 
 const mockRepo = {
   create: jest.fn(),
@@ -88,6 +89,43 @@ describe('Given the user controller', () => {
       (Auth.compare as jest.Mock).mockResolvedValue(true);
       await controller.login(mockReq, mockResp, mockNext);
       expect(mockResp.status).toHaveBeenCalled();
+      expect(mockResp.json).toHaveBeenCalled();
+    });
+  });
+
+  describe('When we call the login method', () => {
+    test('If the request do not have email it should throw an error', async () => {
+      await controller.register(mockReq1, mockResp, mockNext);
+
+      expect(mockNext).toHaveBeenCalledWith(
+        new HTTPError(400, 'Bad request', 'Incomplete information')
+      );
+    });
+    test('If the request do not have password it should throw an error', async () => {
+      await controller.register(mockReq2, mockResp, mockNext);
+
+      expect(mockNext).toHaveBeenCalledWith(
+        new HTTPError(400, 'Bad request', 'Incomplete information')
+      );
+    });
+    test('If the request do not have name it should throw an error', async () => {
+      await controller.register(mockReq3, mockResp, mockNext);
+
+      expect(mockNext).toHaveBeenCalledWith(
+        new HTTPError(400, 'Bad request', 'Incomplete information')
+      );
+    });
+    test('If the request do not have any data it should throw an error', async () => {
+      await controller.register(mockReq4, mockResp, mockNext);
+
+      expect(mockNext).toHaveBeenCalledWith(
+        new HTTPError(400, 'Bad request', 'Incomplete information')
+      );
+    });
+    test('If the data was  correct it should call the search method and resp.json', async () => {
+      await controller.register(mockReq, mockResp, mockNext);
+
+      expect(mockRepo.create).toHaveBeenCalled();
       expect(mockResp.json).toHaveBeenCalled();
     });
   });
