@@ -10,5 +10,8 @@ export default {
     'app.ts',
     'router',
     './src/repositories/users/users.mongo.model.ts',
+    './src/config.ts',
+    './src/repositories/plants/plants.mongo.model.ts',
+    './src/mocks/mockTest.ts',
   ],
 };
