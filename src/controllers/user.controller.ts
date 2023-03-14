@@ -1,8 +1,8 @@
 import { Response, Request, NextFunction } from 'express';
 import createDebug from 'debug';
-import { User } from '../entities/user';
-import { Repo } from '../repositories/repo.interface';
-import { HTTPError } from '../errors/error';
+import { User } from '../entities/user.js';
+import { Repo } from '../repositories/repo.interface.js';
+import { HTTPError } from '../errors/error.js';
 import { Auth, PayloadToken } from '../services/auth.js';
 const debug = createDebug('WFP:controller:users');
 
@@ -13,7 +13,7 @@ export class UsersController {
   async login(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('login:post');
-      if (!req.body.email || !req.body.passwd || req.body.name)
+      if (!req.body.email || !req.body.passwd || !req.body.name)
         throw new HTTPError(400, 'Bad request', 'Incomplete information');
       const data = await this.repo.search({
         key: 'email',
