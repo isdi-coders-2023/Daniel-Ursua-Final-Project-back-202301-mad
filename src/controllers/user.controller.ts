@@ -30,7 +30,7 @@ export class UsersController {
       const token = Auth.createJWT(payload);
       resp.status(202);
       resp.json({
-        token,
+        results: token,
       });
       debug('Login successful');
     } catch (error) {
