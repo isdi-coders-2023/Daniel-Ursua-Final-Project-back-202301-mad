@@ -30,8 +30,30 @@ export class UsersController {
       const token = Auth.createJWT(payload);
       resp.status(202);
       resp.json({
-        token,
+        results: token,
       });
+      debug('Login successful');
+    } catch (error) {
+      next(error);
+    }
+  }
+  async register(req: Request, resp: Response, next: NextFunction) {
+    try {
+      debug('post register');
+      if (!req.body.email || !req.body.passwd || !req.body.name) {
+        throw new HTTPError(400, 'Bad request', 'Incomplete information');
+      }
+      console.log(req.body.email, req.body.passwd, req.body.name);
+      console.log(await Auth.hash(req.body.passwd));
+      req.body.passwd = await Auth.hash(req.body.passwd);
+      req.body.plantList = [];
+      req.body.myPlants = [];
+      const data = await this.repo.create(req.body);
+      console.log(data);
+      resp.json({
+        results: [data],
+      });
+      debug('Register successful');
     } catch (error) {
       next(error);
     }

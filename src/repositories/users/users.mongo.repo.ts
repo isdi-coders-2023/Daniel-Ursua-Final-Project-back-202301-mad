@@ -1,7 +1,7 @@
 import debug from 'debug';
-import { protoUser, User } from '../../entities/user';
-import { Repo } from '../repo.interface';
-import { UserModel } from './users.mongo.model';
+import { protoUser, User } from '../../entities/user.js';
+import { Repo } from '../repo.interface.js';
+import { UserModel } from './users.mongo.model.js';
 
 export class UsersMongoRepo implements Repo<User> {
   private static instance: UsersMongoRepo;

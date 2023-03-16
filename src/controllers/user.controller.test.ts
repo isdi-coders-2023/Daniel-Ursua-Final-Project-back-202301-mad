@@ -91,4 +91,41 @@ describe('Given the user controller', () => {
       expect(mockResp.json).toHaveBeenCalled();
     });
   });
+
+  describe('When we call the login method', () => {
+    test('If the request do not have email it should throw an error', async () => {
+      await controller.register(mockReq1, mockResp, mockNext);
+
+      expect(mockNext).toHaveBeenCalledWith(
+        new HTTPError(400, 'Bad request', 'Incomplete information')
+      );
+    });
+    test('If the request do not have password it should throw an error', async () => {
+      await controller.register(mockReq2, mockResp, mockNext);
+
+      expect(mockNext).toHaveBeenCalledWith(
+        new HTTPError(400, 'Bad request', 'Incomplete information')
+      );
+    });
+    test('If the request do not have name it should throw an error', async () => {
+      await controller.register(mockReq3, mockResp, mockNext);
+
+      expect(mockNext).toHaveBeenCalledWith(
+        new HTTPError(400, 'Bad request', 'Incomplete information')
+      );
+    });
+    test('If the request do not have any data it should throw an error', async () => {
+      await controller.register(mockReq4, mockResp, mockNext);
+
+      expect(mockNext).toHaveBeenCalledWith(
+        new HTTPError(400, 'Bad request', 'Incomplete information')
+      );
+    });
+    test('If the data was  correct it should call the search method and resp.json', async () => {
+      await controller.register(mockReq, mockResp, mockNext);
+
+      expect(mockRepo.create).toHaveBeenCalled();
+      expect(mockResp.json).toHaveBeenCalled();
+    });
+  });
 });
