@@ -20,5 +20,8 @@ app.use(express.json());
 
 app.use('/users', userRouter);
 app.use('/', (_req, resp) => {
-  resp.send('<h1> Work in progress <h1>');
+  resp.send({
+    name: 'PlantApp',
+    endpoint: '/users',
+  });
 });
