@@ -48,3 +48,100 @@ export const mockReq6 = {
 } as unknown as Request;
 
 export const mockNext = jest.fn();
+
+export const mockPlants = [
+  {
+    body: {
+      name: 'Test plant',
+      height: 20,
+      lightness: 'medium',
+      humidity: 'high',
+      difficult: 'easy',
+      animalFriendly: true,
+    },
+  },
+  {
+    body: {
+      photo: 'http://test.com/test.jpg',
+      height: 20,
+      lightness: 'medium',
+      humidity: 'high',
+      difficult: 'easy',
+      animalFriendly: true,
+    },
+  },
+  {
+    body: {
+      photo: 'http://test.com/test.jpg',
+      name: 'Test plant',
+      height: 20,
+      lightness: 'medium',
+      humidity: 'high',
+      difficult: 'easy',
+      animalFriendly: true,
+    },
+  },
+  {
+    body: {
+      photo: 'http://test.com/test.jpg',
+      name: 'Test plant',
+      lightness: 'medium',
+      humidity: 'high',
+      difficult: 'easy',
+      animalFriendly: true,
+    },
+  },
+  {
+    body: {
+      photo: 'http://test.com/test.jpg',
+      name: 'Test plant',
+      height: 20,
+      humidity: 'high',
+      difficult: 'easy',
+      animalFriendly: true,
+    },
+  },
+  {
+    body: {
+      photo: 'http://test.com/test.jpg',
+      name: 'Test plant',
+      height: 20,
+      lightness: 'medium',
+      difficult: 'easy',
+      animalFriendly: true,
+    },
+  },
+  {
+    body: {
+      photo: 'http://test.com/test.jpg',
+      name: 'Test plant',
+      height: 20,
+      lightness: 'medium',
+      humidity: 'high',
+      animalFriendly: true,
+    },
+  },
+  {
+    body: {
+      photo: 'http://test.com/test.jpg',
+      name: 'Test plant',
+      height: 20,
+      lightness: 'medium',
+      humidity: 'high',
+      difficult: 'easy',
+    },
+  },
+];
+
+export const mockPlantsComplete = {
+  body: {
+    photo: 'http://test.com/test.jpg',
+    name: 'Test plant',
+    ubication: 'test',
+    height: 20,
+    lightness: 'medium',
+    humidity: 'high',
+    difficult: 'easy',
+    animalFriendly: true,
+  },
+} as unknown as Request;

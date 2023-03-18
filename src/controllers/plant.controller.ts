@@ -54,8 +54,11 @@ export class PlantsController {
         value: this.checkUser(req, next),
       });
       req.body.creator = user[0];
-      this.repo.create(req.body);
+      const result = await this.repo.create(req.body);
       resp.status(201);
+      resp.json({
+        results: [result],
+      });
       debug('New register created');
     } catch (error) {
       next(error);
