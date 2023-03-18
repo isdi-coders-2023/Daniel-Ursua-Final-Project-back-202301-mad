@@ -13,7 +13,7 @@ export class UsersController {
   async login(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('login:post');
-      if (!req.body.email || !req.body.passwd || !req.body.name)
+      if (!req.body.email || !req.body.passwd)
         throw new HTTPError(400, 'Bad request', 'Incomplete information');
       const data = await this.repo.search({
         key: 'email',
