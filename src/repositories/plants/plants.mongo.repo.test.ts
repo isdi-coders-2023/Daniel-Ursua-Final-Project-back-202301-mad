@@ -25,8 +25,9 @@ describe('Given the plants mongo repo', () => {
   });
   describe('When we use the search method', () => {
     test('Then it should call find method and return the user', async () => {
-      (PlantModel.find as jest.Mock).mockResolvedValue(mockPlant);
-
+      (PlantModel.find as jest.Mock).mockReturnValue({
+        exec: jest.fn().mockResolvedValue(mockPlant),
+      });
       const element = await repo.search({ key: 'name', value: 'test' });
 
       expect(PlantModel.find).toHaveBeenCalled();

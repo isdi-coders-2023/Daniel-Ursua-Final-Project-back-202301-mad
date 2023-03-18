@@ -25,7 +25,7 @@ export class PlantsMongoRepo implements Repo<Plant> {
   }
   async search(query: { key: string; value: unknown }): Promise<Plant[]> {
     debug('Search');
-    const data = await PlantModel.find({ [query.key]: query.value });
+    const data = await PlantModel.find({ [query.key]: query.value }).exec();
     return data;
   }
 }
