@@ -58,7 +58,7 @@ describe('Given the PlantsController', () => {
   });
   describe('When we use the add method', () => {
     test('If any of the conditions are missing it should throw an error', () => {
-      mockPlants.map((plant) => {
+      mockPlants.forEach((plant) => {
         const req = { body: plant } as any;
         plantsController.add(req, mockResp, mockNext);
         expect(mockNext).toHaveBeenCalledWith(
