@@ -35,4 +35,16 @@ export const mockResp = {
   json: jest.fn(),
 } as unknown as Response;
 
+export const mockReq5 = {
+  headers: {
+    test: 'test',
+  },
+} as unknown as Request;
+
+export const mockReq6 = {
+  headers: {
+    authorization: 'test token',
+  },
+} as unknown as Request;
+
 export const mockNext = jest.fn();
