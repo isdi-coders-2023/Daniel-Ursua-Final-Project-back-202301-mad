@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
 import { Plant } from '../../entities/plant.js';
 
-const userSchema = new Schema<Plant>({
+const plantSchema = new Schema<Plant>({
   photo: {
     type: String,
     required: true,
@@ -42,7 +42,7 @@ const userSchema = new Schema<Plant>({
   },
 });
 
-userSchema.set('toJSON', {
+plantSchema.set('toJSON', {
   transform(_document, returnedObject) {
     returnedObject.id = returnedObject._id;
     delete returnedObject.__v;
@@ -51,4 +51,4 @@ userSchema.set('toJSON', {
   },
 });
 
-export const UserModel = model('User', userSchema, 'users');
+export const PlantModel = model('Plant', plantSchema, 'plants');

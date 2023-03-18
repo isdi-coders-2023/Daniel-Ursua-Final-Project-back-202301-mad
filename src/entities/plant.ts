@@ -3,7 +3,11 @@ import { User } from './user';
 type Grade = 'Low' | 'Medium' | 'High';
 export type Ubication = 'Indoor' | 'Outdoor' | 'Both';
 
-export type Plant = {
+export type hasId = {
+  id: string;
+};
+
+export type protoPlant = {
   photo: string;
   name: string;
   ubication: Ubication;
@@ -14,3 +18,5 @@ export type Plant = {
   animalFriendly: boolean;
   creator: User;
 };
+
+export type Plant = hasId & protoPlant;
