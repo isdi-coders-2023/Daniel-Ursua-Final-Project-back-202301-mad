@@ -1,7 +1,7 @@
 import createDebug from 'debug';
-import { Plant, protoPlant } from '../../entities/plant';
-import { Repo } from '../repo.interface';
-import { PlantModel } from './plants.mongo.model';
+import { Plant, protoPlant } from '../../entities/plant.js';
+import { Repo } from '../repo.interface.js';
+import { PlantModel } from './plants.mongo.model.js';
 
 const debug = createDebug('WFP:repository:plants');
 
@@ -25,7 +25,10 @@ export class PlantsMongoRepo implements Repo<Plant> {
   }
   async search(query: { key: string; value: unknown }): Promise<Plant[]> {
     debug('Search');
+    console.log(query.key, query.value);
+    console.log(`Query: ${JSON.stringify({ [query.key]: query.value })}`);
     const data = await PlantModel.find({ [query.key]: query.value }).exec();
+    console.log(data);
     return data;
   }
 }
