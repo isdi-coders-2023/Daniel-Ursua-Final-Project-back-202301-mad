@@ -15,10 +15,21 @@ const mockRepo = {
   search: jest.fn(),
 };
 
+const userRepoMock = {
+  search: jest.fn().mockReturnValue([]),
+};
+
+jest.mock('../repositories/users/users.mongo.repo.ts', () => ({
+  UsersMongoRepo: {
+    getInstance: () => userRepoMock,
+  },
+}));
+
 beforeEach(() => {
   jest.clearAllMocks();
 });
 const plantsController = new PlantsController(mockRepo);
+
 describe('Given the PlantsController', () => {
   describe('When it is instantiated', () => {
     test('Then it should create a new instance', () => {
@@ -49,9 +60,9 @@ describe('Given the PlantsController', () => {
         new HTTPError(401, 'Unauthorized', 'Invalid token')
       );
     });
-    test('If it is valid, then it should return the userId', async () => {
+    test('If it is valid, then it should return the usermail', async () => {
       jwt.verify = jest.fn();
-      (jwt.verify as jest.Mock).mockResolvedValue({ id: 'test' });
+      (jwt.verify as jest.Mock).mockResolvedValue({ email: 'test' });
       const result = await plantsController.checkUser(
         mockReq6,
         mockResp,
@@ -77,9 +88,13 @@ describe('Given the PlantsController', () => {
     });
   });
   describe('When we passed all the conditions, it check if the register already exist', () => {
-    test('If the register do  not exist, it should throw an error', async () => {
+    test('If the register do  not exist, it should create it', async () => {
       mockRepo.search.mockResolvedValue([]);
       mockRepo.create.mockResolvedValue('test');
+      jest
+        .spyOn(plantsController, 'checkUser')
+        .mockImplementation(async () => 'mocked');
+      userRepoMock.search.mockResolvedValue(['test']);
       await plantsController.add(mockPlantsComplete, mockResp, mockNext);
       expect(mockResp.status).toHaveBeenCalled();
       expect(mockResp.json).toHaveBeenCalled();

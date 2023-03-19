@@ -33,6 +33,7 @@ export const mockReq4 = {
 export const mockResp = {
   status: jest.fn(),
   json: jest.fn(),
+  send: jest.fn(),
 } as unknown as Response;
 
 export const mockReq5 = {
