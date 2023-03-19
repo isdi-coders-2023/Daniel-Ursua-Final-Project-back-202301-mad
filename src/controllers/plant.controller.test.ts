@@ -9,7 +9,6 @@ import {
   mockResp,
   mockPlantsComplete,
 } from '../mocks/mockTest';
-import { UsersMongoRepo } from '../repositories/users/users.mongo.repo';
 
 const mockRepo = {
   create: jest.fn(),
