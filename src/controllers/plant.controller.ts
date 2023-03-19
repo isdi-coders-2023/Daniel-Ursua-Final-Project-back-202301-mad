@@ -22,7 +22,6 @@ export class PlantsController {
         token,
         process.env.JWT_SECRET as string
       );
-      console.log(decodedToken);
       if (typeof decodedToken !== 'object')
         throw new HTTPError(401, 'Unauthorized', 'Invalid token');
       const userMail = decodedToken.email;
@@ -54,18 +53,16 @@ export class PlantsController {
       if (data.length)
         throw new HTTPError(409, 'Conflict', 'Register already exist');
       const userMail = await this.checkUser(req, resp, next);
-      console.log(userMail);
       const userRepo = UsersMongoRepo.getInstance();
       const user = await userRepo.search({
         key: 'email',
         value: userMail,
       });
-      console.log(user);
       req.body.creator = user[0];
-      console.log(req.body);
       const result = await this.repo.create(req.body);
       debug('New register created');
-      resp.status(201).json({
+      resp.status(201);
+      resp.json({
         results: [result],
       });
     } catch (error) {
