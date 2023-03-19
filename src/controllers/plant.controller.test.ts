@@ -8,11 +8,13 @@ import {
   mockPlants,
   mockResp,
   mockPlantsComplete,
+  mockReq,
 } from '../mocks/mockTest';
 
 const mockRepo = {
   create: jest.fn(),
   search: jest.fn(),
+  getAll: jest.fn(),
 };
 
 const userRepoMock = {
@@ -106,6 +108,27 @@ describe('Given the PlantsController', () => {
       expect(mockNext).toHaveBeenCalledWith(
         new HTTPError(409, 'Conflict', 'Register already exist')
       );
+    });
+  });
+  describe('When we use the getAll method, if there is no error', () => {
+    test('It should return all the data', async () => {
+      mockRepo.getAll.mockResolvedValue(['test']);
+
+      const element = await plantsController.getAll(
+        mockReq,
+        mockResp,
+        mockNext
+      );
+      expect(element).toEqual(['test']);
+    });
+  });
+  describe('When we use the getAll method, if there is an error', () => {
+    test('It should throw an error', async () => {
+      mockRepo.getAll.mockResolvedValue(null);
+
+      await plantsController.getAll(mockReq, mockResp, mockNext);
+
+      expect(mockNext).toHaveBeenCalled();
     });
   });
 });

@@ -69,4 +69,14 @@ export class PlantsController {
       next(error);
     }
   }
+  async getAll(_req: Request, resp: Response, next: NextFunction) {
+    try {
+      debug('getAll: get');
+      const result = await this.repo.getAll();
+      resp.status(200);
+      return result;
+    } catch (error) {
+      next(error);
+    }
+  }
 }
