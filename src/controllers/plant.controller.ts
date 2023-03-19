@@ -1,9 +1,10 @@
 import { Response, Request, NextFunction } from 'express';
 import createDebug from 'debug';
-import { Plant } from '../entities/plant';
-import { HTTPError } from '../errors/error';
-import { Repo } from '../repositories/repo.interface';
+import { Plant } from '../entities/plant.js';
+import { HTTPError } from '../errors/error.js';
+import { Repo } from '../repositories/repo.interface.js';
 import jwt from 'jsonwebtoken';
+import { UsersMongoRepo } from '../repositories/users/users.mongo.repo.js';
 
 const debug = createDebug('WFP:controller: plants');
 
@@ -21,14 +22,12 @@ export class PlantsController {
         token,
         process.env.JWT_SECRET as string
       );
+      console.log(decodedToken);
       if (typeof decodedToken !== 'object')
         throw new HTTPError(401, 'Unauthorized', 'Invalid token');
-      const userId = decodedToken.id;
+      const userMail = decodedToken.email;
       resp.status(200);
-      resp.json({
-        results: userId,
-      });
-      return userId;
+      return userMail;
     } catch (error) {
       next(error);
     }
@@ -54,17 +53,21 @@ export class PlantsController {
       });
       if (data.length)
         throw new HTTPError(409, 'Conflict', 'Register already exist');
-      const user = await this.repo.search({
-        key: 'id',
-        value: this.checkUser(req, resp, next),
+      const userMail = await this.checkUser(req, resp, next);
+      console.log(userMail);
+      const userRepo = UsersMongoRepo.getInstance();
+      const user = await userRepo.search({
+        key: 'email',
+        value: userMail,
       });
+      console.log(user);
       req.body.creator = user[0];
+      console.log(req.body);
       const result = await this.repo.create(req.body);
-      resp.status(201);
-      resp.json({
+      debug('New register created');
+      resp.status(201).json({
         results: [result],
       });
-      debug('New register created');
     } catch (error) {
       next(error);
     }

@@ -81,7 +81,7 @@ describe('Given the PlantsController', () => {
       mockRepo.search.mockResolvedValue([]);
       mockRepo.create.mockResolvedValue('test');
       await plantsController.add(mockPlantsComplete, mockResp, mockNext);
-      expect(mockResp.status).toHaveBeenCalled();
+      expect(mockResp.send).toHaveBeenCalled();
       expect(mockResp.json).toHaveBeenCalled();
     });
     test('If the register already exist, it should throw an error', async () => {
