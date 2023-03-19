@@ -27,7 +27,7 @@ describe('Given the PlantsController', () => {
   });
   describe('When we use the checkUser method without authorization', () => {
     test('Then, it should throw an error', () => {
-      plantsController.checkUser(mockReq5, mockNext);
+      plantsController.checkUser(mockReq5, mockResp, mockNext);
       expect(mockNext).toHaveBeenCalledWith(
         new HTTPError(400, 'Bad request', 'Request required')
       );
@@ -36,7 +36,7 @@ describe('Given the PlantsController', () => {
   describe('When we use the checkUser method with authorization', () => {
     test('Then, it should call the jwt.verify method', () => {
       jwt.verify = jest.fn();
-      plantsController.checkUser(mockReq6, mockNext);
+      plantsController.checkUser(mockReq6, mockResp, mockNext);
       expect(jwt.verify).toHaveBeenCalled();
     });
   });
@@ -44,7 +44,7 @@ describe('Given the PlantsController', () => {
     test('If it is invalid, then it should throw an error', async () => {
       jwt.verify = jest.fn();
       (jwt.verify as jest.Mock).mockResolvedValue('test');
-      await plantsController.checkUser(mockReq6, mockNext);
+      await plantsController.checkUser(mockReq6, mockResp, mockNext);
       expect(mockNext).toHaveBeenCalledWith(
         new HTTPError(401, 'Unauthorized', 'Invalid token')
       );
@@ -52,7 +52,11 @@ describe('Given the PlantsController', () => {
     test('If it is valid, then it should return the userId', async () => {
       jwt.verify = jest.fn();
       (jwt.verify as jest.Mock).mockResolvedValue({ id: 'test' });
-      const result = await plantsController.checkUser(mockReq6, mockNext);
+      const result = await plantsController.checkUser(
+        mockReq6,
+        mockResp,
+        mockNext
+      );
       expect(result).toEqual('test');
     });
   });

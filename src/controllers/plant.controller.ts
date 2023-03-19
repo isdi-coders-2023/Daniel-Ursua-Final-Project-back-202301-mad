@@ -11,8 +11,9 @@ export class PlantsController {
   constructor(public repo: Repo<Plant>) {
     debug('Instantiate');
   }
-  async checkUser(req: Request, next: NextFunction) {
+  async checkUser(req: Request, resp: Response, next: NextFunction) {
     try {
+      debug('Searching');
       if (!req.headers.authorization)
         throw new HTTPError(400, 'Bad request', 'Request required');
       const token = req.headers.authorization.split(' ')[1];
@@ -23,6 +24,10 @@ export class PlantsController {
       if (typeof decodedToken !== 'object')
         throw new HTTPError(401, 'Unauthorized', 'Invalid token');
       const userId = decodedToken.id;
+      resp.status(200);
+      resp.json({
+        results: userId,
+      });
       return userId;
     } catch (error) {
       next(error);
@@ -51,7 +56,7 @@ export class PlantsController {
         throw new HTTPError(409, 'Conflict', 'Register already exist');
       const user = await this.repo.search({
         key: 'id',
-        value: this.checkUser(req, next),
+        value: this.checkUser(req, resp, next),
       });
       req.body.creator = user[0];
       const result = await this.repo.create(req.body);
