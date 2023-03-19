@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import { PlantsController } from '../controllers/plant.controller';
-import { PlantsMongoRepo } from '../repositories/plants/plants.mongo.repo';
+import { PlantsController } from '../controllers/plant.controller.js';
+import { PlantsMongoRepo } from '../repositories/plants/plants.mongo.repo.js';
 
 export const plantRouter = Router();
 

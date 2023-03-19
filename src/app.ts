@@ -3,6 +3,7 @@ import createDebug from 'debug';
 import morgan from 'morgan';
 import cors from 'cors';
 import { userRouter } from './routers/user.router.js';
+import { plantRouter } from './routers/plant.router.js';
 
 const debug = createDebug('WFP:APP');
 
@@ -19,6 +20,7 @@ app.use(cors(corsOriginis));
 app.use(express.json());
 
 app.use('/users', userRouter);
+app.use('/plants', plantRouter);
 app.use('/', (_req, resp) => {
   resp.send({
     name: 'PlantApp',
