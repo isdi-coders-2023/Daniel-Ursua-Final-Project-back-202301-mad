@@ -18,7 +18,6 @@ const plantSchema = new Schema<Plant>({
   height: {
     type: Number,
     required: true,
-    unique: true,
   },
   lightness: {
     type: String,
