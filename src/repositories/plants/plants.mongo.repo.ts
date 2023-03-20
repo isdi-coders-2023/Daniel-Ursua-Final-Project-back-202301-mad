@@ -36,5 +36,5 @@ export class PlantsMongoRepo implements PlantRepo {
     return data;
   }
 }
-
+//Código recordatorio
 //TODO Añadir el método getbyId para utilizarlo para rellenar el detalle. En ese método tendré que popular el campo creator.
