@@ -1,8 +1,6 @@
 import { Response, Request, NextFunction } from 'express';
 import createDebug from 'debug';
 import { HTTPError } from '../errors/error.js';
-import jwt from 'jsonwebtoken';
-import { UsersMongoRepo } from '../repositories/users/users.mongo.repo.js';
 import { PlantRepo } from '../repositories/plants/plant.interface.js';
 import { CustomRequest } from '../interceptor/interceptor.js';
 
