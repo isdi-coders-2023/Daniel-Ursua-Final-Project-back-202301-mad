@@ -39,19 +39,19 @@ describe('Given the plants mongo repo', () => {
       expect(element).toEqual(mockPlant);
     });
   });
-  describe('When we use the getAll method', () => {
+  describe('When we use the findAll method', () => {
     test('If there is no data in the collection, it should throw an error', async () => {
       (PlantModel.find as jest.Mock).mockReturnValue({
         exec: jest.fn().mockResolvedValue(''),
       });
-      const element = repo.getAll();
+      const element = repo.findAll();
       await expect(element).rejects.toThrow();
     });
     test('If there is data in the collection, it should return it', async () => {
       (PlantModel.find as jest.Mock).mockReturnValue({
         exec: jest.fn().mockResolvedValue(['data']),
       });
-      const element = await repo.getAll();
+      const element = await repo.findAll();
       expect(element).toEqual(['data']);
     });
   });
