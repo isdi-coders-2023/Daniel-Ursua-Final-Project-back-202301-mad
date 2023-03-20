@@ -11,7 +11,7 @@ export type protoPlant = {
   photo: string;
   name: string;
   ubication: Ubication;
-  height: number;
+  height: string;
   lightness: Grade;
   humidity: Grade;
   difficult: Grade;

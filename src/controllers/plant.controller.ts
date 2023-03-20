@@ -21,8 +21,7 @@ export class PlantsController {
         !req.body.height ||
         !req.body.lightness ||
         !req.body.humidity ||
-        !req.body.difficult ||
-        !req.body.animalFriendly
+        !req.body.difficult
       )
         throw new HTTPError(400, 'Bad request', 'Incomplete information');
       const data = await this.repo.search({
