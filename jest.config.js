@@ -8,7 +8,7 @@ export default {
   coveragePathIgnorePatterns: [
     'index.ts',
     'app.ts',
-    'routers',
+    'src/routers',
     './src/repositories/users/users.mongo.model.ts',
     './src/config.ts',
     './src/repositories/plants/plants.mongo.model.ts',
