@@ -1,4 +1,5 @@
 import { Response, Request } from 'express';
+import { CustomRequest } from '../interceptor/interceptor';
 
 export const mockReq = {
   body: {
@@ -7,6 +8,17 @@ export const mockReq = {
     name: 'test name',
   },
 } as unknown as Request;
+
+export const mockCustomReq = {
+  body: {
+    email: 'test email',
+    passwd: 'test passwd',
+    name: 'test name',
+  },
+  credentials: {
+    id: 'test id',
+  },
+} as unknown as CustomRequest;
 
 export const mockReq1 = {
   body: {
@@ -144,5 +156,8 @@ export const mockPlantsComplete = {
     humidity: 'high',
     difficult: 'easy',
     animalFriendly: true,
+  },
+  credentials: {
+    id: 'test id',
   },
 } as unknown as Request;
