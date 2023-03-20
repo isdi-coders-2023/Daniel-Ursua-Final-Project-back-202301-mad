@@ -37,7 +37,7 @@ const plantSchema = new Schema<Plant>({
   },
   creator: {
     type: Schema.Types.ObjectId,
-    required: true,
+    ref: 'User',
   },
 });
 

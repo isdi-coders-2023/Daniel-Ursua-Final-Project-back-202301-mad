@@ -1,13 +1,12 @@
 import { Response, Request, NextFunction } from 'express';
 import createDebug from 'debug';
-import { User } from '../entities/user.js';
-import { Repo } from '../repositories/repo.interface.js';
+import { UserRepo } from '../repositories/users/user.interface.js';
 import { HTTPError } from '../errors/error.js';
 import { Auth, TokenPayload } from '../services/auth.js';
 const debug = createDebug('WFP:controller:users');
 
 export class UsersController {
-  constructor(public repo: Repo<User>) {
+  constructor(public repo: UserRepo) {
     debug('Instantiate');
   }
   async login(req: Request, resp: Response, next: NextFunction) {

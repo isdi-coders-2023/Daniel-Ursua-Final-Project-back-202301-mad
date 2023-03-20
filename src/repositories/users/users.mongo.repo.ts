@@ -1,11 +1,11 @@
 import createDebug from 'debug';
 import { protoUser, User } from '../../entities/user.js';
-import { Repo } from '../repo.interface.js';
+import { UserRepo } from './user.interface.js';
 import { UserModel } from './users.mongo.model.js';
 
 const debug = createDebug('WFP:repository:users');
 
-export class UsersMongoRepo implements Repo<User> {
+export class UsersMongoRepo implements UserRepo {
   private static instance: UsersMongoRepo;
 
   public static getInstance(): UsersMongoRepo {
