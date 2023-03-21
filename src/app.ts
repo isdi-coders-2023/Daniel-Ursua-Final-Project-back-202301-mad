@@ -27,8 +27,9 @@ app.use('/', (_req, resp) => {
     name: 'PlantApp',
     endpoint: '/users',
   });
+});
 
-  app.use(
+app.use(
   (error: CustomError, _req: Request, resp: Response, _next: NextFunction) => {
     const status = error.statusCode || 500;
     const statusMessage = error.statusMessage || 'Internal Server Error';

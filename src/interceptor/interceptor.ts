@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { HTTPError } from '../errors/error.js';
-import { Auth, TokenPayload } from '../services/auth';
+import { Auth, TokenPayload } from '../services/auth.js';
 import createDebug from 'debug';
 
 const debug = createDebug('WFP:interceptor');
