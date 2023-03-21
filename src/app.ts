@@ -1,9 +1,10 @@
-import express from 'express';
+import express, { NextFunction, Request, Response } from 'express';
 import createDebug from 'debug';
 import morgan from 'morgan';
 import cors from 'cors';
 import { userRouter } from './routers/user.router.js';
 import { plantRouter } from './routers/plant.router.js';
+import { CustomError } from './errors/error.js';
 
 const debug = createDebug('WFP:APP');
 
@@ -26,4 +27,17 @@ app.use('/', (_req, resp) => {
     name: 'PlantApp',
     endpoint: '/users',
   });
-});
+
+  app.use(
+  (error: CustomError, _req: Request, resp: Response, _next: NextFunction) => {
+    const status = error.statusCode || 500;
+    const statusMessage = error.statusMessage || 'Internal Server Error';
+    resp.status(status);
+    debug('Error: ', status, statusMessage);
+    debug(error.name, ': ', error.message);
+
+    resp.json({
+      error: [{ status, statusMessage }],
+    });
+  }
+);
