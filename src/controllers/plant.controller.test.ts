@@ -6,12 +6,14 @@ import {
   mockResp,
   mockPlantsComplete,
   mockReq,
+  mockEditPlant,
 } from '../mocks/mockTest';
 
 const mockRepo = {
   create: jest.fn(),
   search: jest.fn(),
   findAll: jest.fn(),
+  edit: jest.fn(),
 };
 
 const userRepoMock = {
@@ -86,6 +88,24 @@ describe('Given the PlantsController', () => {
 
       await plantsController.getAll(mockReq, mockResp, mockNext);
       expect(mockNext).toHaveBeenCalled();
+    });
+  });
+});
+describe('Given the editPlant method', () => {
+  describe('And there is no register to edit', () => {
+    test('Then it should throw an error', async () => {
+      mockRepo.edit.mockReturnValue(undefined);
+      await plantsController.editPlant(mockReq, mockResp, mockNext);
+      expect(mockNext).toHaveBeenCalledWith(
+        new HTTPError(404, 'Register not found', 'Register not found')
+      );
+    });
+  });
+  describe('And there is a register to edit', () => {
+    test('Then it should return an updated register', async () => {
+      mockRepo.edit.mockReturnValue(mockEditPlant);
+      await plantsController.editPlant(mockPlantsComplete, mockResp, mockNext);
+      expect(mockResp.json).toHaveBeenCalledWith({ results: mockEditPlant });
     });
   });
 });

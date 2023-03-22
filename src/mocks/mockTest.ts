@@ -1,4 +1,5 @@
 import { Response, Request } from 'express';
+import { Plant } from '../entities/plant';
 import { CustomRequest } from '../interceptor/interceptor';
 
 export const mockReq = {
@@ -161,3 +162,11 @@ export const mockPlantsComplete = {
     id: 'test id',
   },
 } as unknown as Request;
+
+export const mockEditPlant = {
+  photo: 'http://test.com/test.jpg',
+  name: 'Test plant',
+  lightness: 'medium',
+  humidity: 'high',
+  animalFriendly: true,
+} as unknown as Partial<Plant>;

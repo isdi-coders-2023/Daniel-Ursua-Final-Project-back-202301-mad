@@ -35,6 +35,21 @@ export class PlantsMongoRepo implements PlantRepo {
     if (!data) throw new HTTPError(404, 'Not found', 'Not found');
     return data;
   }
+  async edit(plant: Partial<Plant>): Promise<Plant> {
+    debug('Edit');
+    const updatedPlant = await PlantModel.findByIdAndUpdate(plant.id, plant, {
+      new: true,
+    }).exec();
+    if (!updatedPlant)
+      throw new HTTPError(
+        404,
+        'Not found',
+        'Update not possible: id not found'
+      );
+
+    debug('Plant updated!');
+    return updatedPlant;
+  }
 }
 //Código recordatorio
 //Añadir el método getbyId para utilizarlo para rellenar el detalle. En ese método tendré que popular el campo creator.
