@@ -12,6 +12,12 @@ const mockPlant = {
 beforeEach(() => {
   jest.resetAllMocks();
 });
+let popValue: any;
+const mockPopulateExec = () => ({
+  populate: jest.fn().mockImplementation(() => ({
+    exec: jest.fn().mockResolvedValue(popValue),
+  })),
+});
 
 describe('Given the plants mongo repo', () => {
   const repo = PlantsMongoRepo.getInstance();
@@ -57,7 +63,7 @@ describe('Given the plants mongo repo', () => {
     });
   });
   describe('When we use the edit method', () => {
-    test('If there is any plant in the data base, it should throw an error', () => {
+    test('If there is an error in the data base, it should throw an error', () => {
       (PlantModel.findByIdAndUpdate as jest.Mock).mockReturnValue({
         exec: jest.fn().mockResolvedValue(undefined),
       });
@@ -70,6 +76,25 @@ describe('Given the plants mongo repo', () => {
       });
       const element = await repo.edit(mockEditPlant);
       expect(element).toBe(mockEditPlant);
+    });
+  });
+});
+describe('Given the find by Id method', () => {
+  const repo = PlantsMongoRepo.getInstance();
+  describe('And there is an error in the data base', () => {
+    test('Then it should throw an error', async () => {
+      popValue = undefined;
+      (PlantModel.findById as jest.Mock).mockImplementation(mockPopulateExec);
+      const result = repo.findById('test');
+      await expect(result).rejects.toThrow();
+    });
+  });
+  describe('And there is a user with that Id', () => {
+    test('Then it should return the plant', async () => {
+      popValue = {};
+      (PlantModel.findById as jest.Mock).mockImplementation(mockPopulateExec);
+      const result = await repo.findById('1');
+      expect(result).toEqual({});
     });
   });
 });
