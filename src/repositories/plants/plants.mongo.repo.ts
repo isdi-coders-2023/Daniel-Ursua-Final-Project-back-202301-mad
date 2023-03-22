@@ -1,5 +1,4 @@
 import createDebug from 'debug';
-import { response } from 'express';
 import { Plant, protoPlant } from '../../entities/plant.js';
 import { HTTPError } from '../../errors/error.js';
 import { PlantRepo } from './plant.interface.js';
