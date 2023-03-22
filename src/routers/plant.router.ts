@@ -19,4 +19,9 @@ plantRouter.patch(
   Interceptors.logged,
   controller.add.bind(controller)
 );
+plantRouter.get(
+  '/plants',
+  Interceptors.logged,
+  controller.add.bind(controller)
+);
 plantRouter.get('/getId', Interceptors.logged, controller.add.bind(controller));

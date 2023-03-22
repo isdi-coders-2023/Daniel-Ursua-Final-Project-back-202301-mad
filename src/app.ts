@@ -25,7 +25,7 @@ app.use('/plants', plantRouter);
 app.use('/', (_req, resp) => {
   resp.send({
     name: 'PlantApp',
-    endpoint: '/users',
+    endpoint: ['/users', '/plants'],
   });
 });
 
