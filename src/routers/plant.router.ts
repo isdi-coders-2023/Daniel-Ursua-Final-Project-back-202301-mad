@@ -9,3 +9,13 @@ const repo = PlantsMongoRepo.getInstance();
 const controller = new PlantsController(repo);
 
 plantRouter.post('/add', Interceptors.logged, controller.add.bind(controller));
+plantRouter.post(
+  '/getall',
+  Interceptors.logged,
+  controller.getAll.bind(controller)
+);
+plantRouter.patch(
+  '/edit',
+  Interceptors.logged,
+  controller.add.bind(controller)
+);
