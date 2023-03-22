@@ -1,4 +1,5 @@
 import createDebug from 'debug';
+import { response } from 'express';
 import { Plant, protoPlant } from '../../entities/plant.js';
 import { HTTPError } from '../../errors/error.js';
 import { PlantRepo } from './plant.interface.js';
@@ -50,6 +51,15 @@ export class PlantsMongoRepo implements PlantRepo {
     debug('Plant updated!');
     return updatedPlant;
   }
+  async findById(id: string): Promise<Plant> {
+    debug('Get by id');
+    const plantSelected = await PlantModel.findById(id)
+      .populate('creator')
+      .exec();
+    if (!plantSelected) {
+      throw new HTTPError(404, 'Not found', 'Register not found');
+    }
+    debug('Register found!');
+    return plantSelected;
+  }
 }
-//Código recordatorio
-//Añadir el método getbyId para utilizarlo para rellenar el detalle. En ese método tendré que popular el campo creator.
