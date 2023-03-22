@@ -61,7 +61,23 @@ export class PlantsController {
       debug('Register updated');
       resp.status(201);
       resp.json({
-        results: result,
+        results: [result],
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  async getById(req: Request, resp: Response, next: NextFunction) {
+    try {
+      debug('getId: get');
+      const result = await this.repo.findById(req.params.id);
+      if (!result) {
+        throw new HTTPError(404, 'Register not found', 'Id not found');
+      }
+      debug('Id found');
+      resp.status(302);
+      resp.json({
+        results: [result],
       });
     } catch (error) {
       next(error);
