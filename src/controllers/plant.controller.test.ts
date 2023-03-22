@@ -14,6 +14,7 @@ const mockRepo = {
   search: jest.fn(),
   findAll: jest.fn(),
   edit: jest.fn(),
+  findById: jest.fn(),
 };
 
 const userRepoMock = {
