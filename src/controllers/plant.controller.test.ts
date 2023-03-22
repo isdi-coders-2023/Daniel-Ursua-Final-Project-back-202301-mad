@@ -104,11 +104,7 @@ describe('Given the editPlant method', () => {
   describe('And there is a register to edit', () => {
     test('Then it should return an updated register', async () => {
       mockRepo.edit.mockReturnValue(mockEditPlant);
-      const result = await plantsController.editPlant(
-        mockPlantsComplete,
-        mockResp,
-        mockNext
-      );
+      await plantsController.editPlant(mockPlantsComplete, mockResp, mockNext);
       expect(mockResp.json).toHaveBeenCalledWith({ results: mockEditPlant });
     });
   });
