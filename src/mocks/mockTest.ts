@@ -170,3 +170,7 @@ export const mockEditPlant = {
   humidity: 'high',
   animalFriendly: true,
 } as unknown as Partial<Plant>;
+
+export const mockReqPa = {
+  params: 'test',
+} as unknown as Request;

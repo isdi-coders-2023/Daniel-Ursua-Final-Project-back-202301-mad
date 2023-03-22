@@ -7,6 +7,7 @@ import {
   mockPlantsComplete,
   mockReq,
   mockEditPlant,
+  mockReqPa,
 } from '../mocks/mockTest';
 
 const mockRepo = {
@@ -106,7 +107,27 @@ describe('Given the editPlant method', () => {
     test('Then it should return an updated register', async () => {
       mockRepo.edit.mockReturnValue(mockEditPlant);
       await plantsController.editPlant(mockPlantsComplete, mockResp, mockNext);
-      expect(mockResp.json).toHaveBeenCalledWith({ results: mockEditPlant });
+      expect(mockResp.json).toHaveBeenCalledWith({ results: [mockEditPlant] });
+    });
+  });
+});
+describe('Given the get by id method', () => {
+  describe('And there is no id to find', () => {
+    test('Then it should throw an error', async () => {
+      mockRepo.findById.mockReturnValue(undefined);
+      await plantsController.getById(mockReqPa, mockResp, mockNext);
+      expect(mockNext).toHaveBeenCalledWith(
+        new HTTPError(404, 'Register not found', 'Id not found')
+      );
+    });
+  });
+  describe('And there is an id', () => {
+    test('Then it should return the plant', async () => {
+      mockRepo.findById.mockResolvedValue(mockPlantsComplete);
+      await plantsController.getById(mockReqPa, mockResp, mockNext);
+      expect(mockResp.json).toHaveBeenCalledWith({
+        results: [mockPlantsComplete],
+      });
     });
   });
 });
