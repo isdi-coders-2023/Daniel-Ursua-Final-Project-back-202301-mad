@@ -1,5 +1,4 @@
 import { protoPlant } from '../../entities/plant';
-import { HTTPError } from '../../errors/error';
 import { mockEditPlant } from '../../mocks/mockTest';
 import { PlantModel } from './plants.mongo.model';
 import { PlantsMongoRepo } from './plants.mongo.repo';
