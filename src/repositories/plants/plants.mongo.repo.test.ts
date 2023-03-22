@@ -1,4 +1,6 @@
 import { protoPlant } from '../../entities/plant';
+import { HTTPError } from '../../errors/error';
+import { mockEditPlant } from '../../mocks/mockTest';
 import { PlantModel } from './plants.mongo.model';
 import { PlantsMongoRepo } from './plants.mongo.repo';
 
@@ -53,6 +55,22 @@ describe('Given the plants mongo repo', () => {
       });
       const element = await repo.findAll();
       expect(element).toEqual(['data']);
+    });
+  });
+  describe('When we use the edit method', () => {
+    test('If there is any plant in the data base, it should throw an error', () => {
+      (PlantModel.findByIdAndUpdate as jest.Mock).mockReturnValue({
+        exec: jest.fn().mockResolvedValue(undefined),
+      });
+      const element = repo.edit(mockEditPlant);
+      expect(element).rejects.toThrow();
+    });
+    test('If there is a plant in the data base, it should return the plant updated', async () => {
+      (PlantModel.findByIdAndUpdate as jest.Mock).mockReturnValue({
+        exec: jest.fn().mockResolvedValue(mockEditPlant),
+      });
+      const element = await repo.edit(mockEditPlant);
+      expect(element).toBe(mockEditPlant);
     });
   });
 });
