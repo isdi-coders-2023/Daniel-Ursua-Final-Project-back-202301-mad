@@ -51,4 +51,20 @@ export class PlantsController {
       next(error);
     }
   }
+  async editPlant(req: Request, resp: Response, next: NextFunction) {
+    try {
+      debug('edit: patch');
+      const result = await this.repo.edit(req.body);
+      if (!result) {
+        throw new HTTPError(404, 'Register not found', 'Register not found');
+      }
+      debug('Register updated');
+      resp.status(201);
+      resp.json({
+        results: result,
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }
