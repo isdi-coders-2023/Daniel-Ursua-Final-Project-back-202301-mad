@@ -31,7 +31,11 @@ export class PlantsMongoRepo implements PlantRepo {
   }
   async findAll(): Promise<Plant[]> {
     debug('Get all');
-    const data = await PlantModel.find().exec();
+    const data = await PlantModel.find({
+      photo: 1,
+      name: 1,
+      ubication: 1,
+    }).exec();
     if (!data) throw new HTTPError(404, 'Not found', 'Not found');
     return data;
   }
