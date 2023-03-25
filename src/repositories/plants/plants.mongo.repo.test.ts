@@ -49,17 +49,46 @@ describe('Given the plants mongo repo', () => {
   describe('When we use the findAll method', () => {
     test('If there is no data in the collection, it should throw an error', async () => {
       (PlantModel.find as jest.Mock).mockReturnValue({
-        exec: jest.fn().mockResolvedValue(''),
+        limit: jest.fn().mockReturnValue({
+          skip: jest.fn().mockReturnValue({
+            exec: jest.fn().mockResolvedValue(undefined),
+          }),
+        }),
       });
-      const element = repo.findAll();
+      const element = repo.findAll(1, 1);
       await expect(element).rejects.toThrow();
     });
     test('If there is data in the collection, it should return it', async () => {
       (PlantModel.find as jest.Mock).mockReturnValue({
+        limit: jest.fn().mockReturnValue({
+          skip: jest.fn().mockReturnValue({
+            exec: jest.fn().mockResolvedValue(['data']),
+          }),
+        }),
+      });
+      const element = await repo.findAll(1, 1);
+      expect(element).toEqual(['data']);
+    });
+    test('If page param is negative, it should take the page 1', async () => {
+      const mockSkip: jest.Mock = jest.fn().mockReturnValue({
         exec: jest.fn().mockResolvedValue(['data']),
       });
-      const element = await repo.findAll();
-      expect(element).toEqual(['data']);
+      const mockLimit: jest.Mock = jest.fn().mockReturnValue({
+        skip: mockSkip,
+      });
+      const mockFind: jest.Mock = (
+        PlantModel.find as jest.Mock
+      ).mockReturnValue({
+        limit: mockLimit,
+      });
+      await repo.findAll(-1, 1);
+      expect(mockFind).toHaveBeenCalledWith({
+        photo: 1,
+        name: 1,
+        ubication: 1,
+      });
+      expect(mockLimit).toHaveBeenCalledWith(1);
+      expect(mockSkip).toHaveBeenCalledWith(0);
     });
   });
   describe('When we use the edit method', () => {

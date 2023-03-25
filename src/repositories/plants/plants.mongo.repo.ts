@@ -29,13 +29,16 @@ export class PlantsMongoRepo implements PlantRepo {
     const data = await PlantModel.find({ [query.key]: query.value }).exec();
     return data;
   }
-  async findAll(): Promise<Plant[]> {
+  async findAll(page: number, elements: number): Promise<Plant[]> {
     debug('Get all');
     const data = await PlantModel.find({
       photo: 1,
       name: 1,
       ubication: 1,
-    }).exec();
+    })
+      .limit(elements)
+      .skip((Math.max(page, 1) - 1) * elements)
+      .exec();
     if (!data) throw new HTTPError(404, 'Not found', 'Not found');
     return data;
   }
