@@ -16,7 +16,7 @@ const userSchema = new Schema<User>({
     type: String,
     required: true,
   },
-  plantList: [
+  greenHouse: [
     {
       type: Schema.Types.ObjectId,
       ref: 'Plant',

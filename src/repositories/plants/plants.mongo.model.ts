@@ -11,7 +11,7 @@ const plantSchema = new Schema<Plant>({
     required: false,
     unique: true,
   },
-  ubication: {
+  location: {
     type: String,
     required: true,
   },

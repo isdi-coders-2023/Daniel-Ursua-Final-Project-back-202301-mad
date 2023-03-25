@@ -17,7 +17,7 @@ export class PlantsController {
       if (
         !req.body.photo ||
         !req.body.name ||
-        !req.body.ubication ||
+        !req.body.location ||
         !req.body.height ||
         !req.body.lightness ||
         !req.body.humidity ||

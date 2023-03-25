@@ -7,7 +7,7 @@ export type protoUser = {
   name: string;
   email: string;
   passwd: string;
-  plantList: Plant[];
+  greenHouse: Plant[];
   myPlants: Plant[];
 };
 
