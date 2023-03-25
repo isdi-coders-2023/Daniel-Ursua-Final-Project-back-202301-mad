@@ -6,6 +6,20 @@ export const mockReqGet = {
   params: {},
 } as unknown as Request;
 
+export const mockReqGetParams = {
+  params: {
+    page: 1,
+    elements: 1,
+  },
+} as unknown as Request;
+
+export const mockReqGetParamsF = {
+  params: {
+    page: undefined,
+    elements: undefined,
+  },
+} as unknown as Request;
+
 export const mockReq = {
   body: {
     email: 'test email',
