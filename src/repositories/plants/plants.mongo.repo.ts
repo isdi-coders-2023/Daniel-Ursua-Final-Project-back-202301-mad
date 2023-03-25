@@ -34,7 +34,7 @@ export class PlantsMongoRepo implements PlantRepo {
     const data = await PlantModel.find({
       photo: 1,
       name: 1,
-      ubication: 1,
+      location: 1,
     })
       .limit(elements)
       .skip((Math.max(page, 1) - 1) * elements)

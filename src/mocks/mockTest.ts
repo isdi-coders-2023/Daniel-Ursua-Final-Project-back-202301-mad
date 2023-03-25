@@ -169,7 +169,7 @@ export const mockPlantsComplete = {
   body: {
     photo: 'http://test.com/test.jpg',
     name: 'Test plant',
-    ubication: 'test',
+    location: 'test',
     height: 20,
     lightness: 'medium',
     humidity: 'high',

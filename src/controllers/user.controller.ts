@@ -45,7 +45,7 @@ export class UsersController {
       console.log(req.body.email, req.body.passwd, req.body.name);
       console.log(await Auth.hash(req.body.passwd));
       req.body.passwd = await Auth.hash(req.body.passwd);
-      req.body.plantList = [];
+      req.body.greenHouse = [];
       req.body.myPlants = [];
       const data = await this.repo.create(req.body);
       console.log(data);

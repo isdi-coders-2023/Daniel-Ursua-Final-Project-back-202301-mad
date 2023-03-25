@@ -1,6 +1,6 @@
 import { User } from './user';
 
-export type Ubication = 'Indoor' | 'Outdoor' | 'Both';
+export type Location = 'Indoor' | 'Outdoor' | 'Both';
 
 export type hasId = {
   id: string;
@@ -9,7 +9,7 @@ export type hasId = {
 export type protoPlant = {
   photo: string;
   name: string;
-  ubication: Ubication;
+  location: Location;
   height: string;
   lightness: string;
   humidity: string;

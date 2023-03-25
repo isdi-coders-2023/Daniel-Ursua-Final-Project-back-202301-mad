@@ -85,7 +85,7 @@ describe('Given the plants mongo repo', () => {
       expect(mockFind).toHaveBeenCalledWith({
         photo: 1,
         name: 1,
-        ubication: 1,
+        location: 1,
       });
       expect(mockLimit).toHaveBeenCalledWith(1);
       expect(mockSkip).toHaveBeenCalledWith(0);
