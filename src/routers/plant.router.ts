@@ -10,18 +10,19 @@ const controller = new PlantsController(repo);
 
 plantRouter.post('/add', Interceptors.logged, controller.add.bind(controller));
 plantRouter.post(
-  '/getall',
+  '/add',
   Interceptors.logged,
   controller.getAll.bind(controller)
 );
 plantRouter.patch(
   '/edit',
   Interceptors.logged,
-  controller.add.bind(controller)
+  controller.editPlant.bind(controller)
 );
-plantRouter.get(
-  '/plants',
-  Interceptors.logged,
-  controller.add.bind(controller)
-);
+plantRouter.get('/', Interceptors.logged, controller.getAll.bind(controller));
 plantRouter.get('/getId', Interceptors.logged, controller.add.bind(controller));
+plantRouter.get(
+  '/:id',
+  Interceptors.logged,
+  controller.getById.bind(controller)
+);
