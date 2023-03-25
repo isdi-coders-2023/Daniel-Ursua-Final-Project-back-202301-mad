@@ -8,6 +8,7 @@ import {
   mockReq,
   mockEditPlant,
   mockReqPa,
+  mockReqGet,
 } from '../mocks/mockTest';
 
 const mockRepo = {
@@ -73,15 +74,9 @@ describe('Given the PlantsController', () => {
     });
   });
   describe('When we use the getAll method, if there is no error', () => {
-    test('It should return all the data', async () => {
-      mockRepo.findAll.mockResolvedValue(['test']);
-
-      const element = await plantsController.getAll(
-        mockReq,
-        mockResp,
-        mockNext
-      );
-      expect(element).toEqual(['test']);
+    test('It should call find all method', async () => {
+      await plantsController.getAll(mockReqGet, mockResp, mockNext);
+      expect(mockRepo.findAll).toHaveBeenCalledWith(1, 5);
     });
   });
   describe('When we use the getAll method, if there is an error', () => {

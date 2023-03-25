@@ -41,10 +41,12 @@ export class PlantsController {
       next(error);
     }
   }
-  async getAll(_req: Request, resp: Response, next: NextFunction) {
+  async getAll(req: Request, resp: Response, next: NextFunction) {
     try {
       debug('getAll: get');
-      const result = await this.repo.findAll();
+      const page = req.params.page ? Number(req.params.page) : 1;
+      const elements = req.params.elements ? Number(req.params.elements) : 5;
+      const result = await this.repo.findAll(page, elements);
       resp.status(200);
       return result;
     } catch (error) {
