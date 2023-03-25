@@ -8,6 +8,8 @@ import {
   mockReq,
   mockEditPlant,
   mockReqPa,
+  mockReqGetParams,
+  mockReqGetParamsF,
 } from '../mocks/mockTest';
 
 const mockRepo = {
@@ -39,8 +41,10 @@ describe('Given the PlantsController', () => {
       expect(plantsController).toBeInstanceOf(PlantsController);
     });
   });
-  describe('When we use the add method', () => {
-    test('If any of the conditions are missing it should throw an error', () => {
+});
+describe('Given the add method', () => {
+  describe('And any of the conditions are missing', () => {
+    test('Then it should throw an error', () => {
       mockPlants.forEach((plant) => {
         const req = { body: plant } as any;
         plantsController.add(req, mockResp, mockNext);
@@ -49,21 +53,25 @@ describe('Given the PlantsController', () => {
         );
       });
     });
-    test('If we have all the conditions, then it should call the search method', () => {
+  });
+  describe('And we have all the conditions', () => {
+    test('Then it should call the search method', () => {
       mockRepo.search.mockResolvedValue(['test']);
       plantsController.add(mockPlantsComplete, mockResp, mockNext);
       expect(mockRepo.search).toHaveBeenCalled();
     });
   });
-  describe('When we passed all the conditions, it check if the register already exist', () => {
-    test('If the register do  not exist, it should create it', async () => {
+  describe('And the register already exist', () => {
+    test('Then it should create it', async () => {
       mockRepo.search.mockResolvedValue([]);
       mockRepo.create.mockResolvedValue('test');
       await plantsController.add(mockPlantsComplete, mockResp, mockNext);
       expect(mockResp.status).toHaveBeenCalled();
       expect(mockResp.json).toHaveBeenCalled();
     });
-    test('If the register already exist, it should throw an error', async () => {
+  });
+  describe('And the register already exist', () => {
+    test('Then it should throw an error', async () => {
       mockRepo.search.mockResolvedValue(['test']);
       mockRepo.create.mockResolvedValue('test');
       await plantsController.add(mockPlantsComplete, mockResp, mockNext);
@@ -72,27 +80,29 @@ describe('Given the PlantsController', () => {
       );
     });
   });
-  describe('When we use the getAll method, if there is no error', () => {
-    test('It should return all the data', async () => {
-      mockRepo.findAll.mockResolvedValue(['test']);
-
-      const element = await plantsController.getAll(
-        mockReq,
-        mockResp,
-        mockNext
-      );
-      expect(element).toEqual(['test']);
+});
+describe('Given the getAll method', () => {
+  describe('And the request have the correct params', () => {
+    test('It should call find all method with the params', async () => {
+      await plantsController.getAll(mockReqGetParams, mockResp, mockNext);
+      expect(mockRepo.findAll).toHaveBeenCalledWith(1, 1);
     });
   });
-  describe('When we use the getAll method, if there is an error', () => {
+  describe('And the request do not have the correct params', () => {
+    test('It should call find all method with default value', async () => {
+      await plantsController.getAll(mockReqGetParamsF, mockResp, mockNext);
+      expect(mockRepo.findAll).toHaveBeenCalledWith(1, 5);
+    });
+  });
+  describe('And there is an error', () => {
     test('It should throw an error', async () => {
       mockRepo.findAll.mockRejectedValue(new Error());
-
       await plantsController.getAll(mockReq, mockResp, mockNext);
       expect(mockNext).toHaveBeenCalled();
     });
   });
 });
+
 describe('Given the editPlant method', () => {
   describe('And there is no register to edit', () => {
     test('Then it should throw an error', async () => {
