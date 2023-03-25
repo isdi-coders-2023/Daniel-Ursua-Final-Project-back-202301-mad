@@ -1,6 +1,5 @@
 import { User } from './user';
 
-type Grade = 'Low' | 'Medium' | 'High';
 export type Ubication = 'Indoor' | 'Outdoor' | 'Both';
 
 export type hasId = {
@@ -12,9 +11,9 @@ export type protoPlant = {
   name: string;
   ubication: Ubication;
   height: string;
-  lightness: Grade;
-  humidity: Grade;
-  difficult: Grade;
+  lightness: string;
+  humidity: string;
+  difficult: string;
   animalFriendly: boolean;
   creator: User;
 };
