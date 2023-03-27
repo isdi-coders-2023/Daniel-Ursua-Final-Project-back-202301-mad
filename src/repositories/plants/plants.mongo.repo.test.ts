@@ -82,11 +82,14 @@ describe('Given the plants mongo repo', () => {
         limit: mockLimit,
       });
       await repo.findAll(-1, 1);
-      expect(mockFind).toHaveBeenCalledWith({
-        photo: 1,
-        name: 1,
-        location: 1,
-      });
+      expect(mockFind).toHaveBeenCalledWith(
+        {},
+        {
+          photo: 1,
+          name: 1,
+          location: 1,
+        }
+      );
       expect(mockLimit).toHaveBeenCalledWith(1);
       expect(mockSkip).toHaveBeenCalledWith(0);
     });
