@@ -55,9 +55,9 @@ describe('Given the add method', () => {
     });
   });
   describe('And we have all the conditions', () => {
-    test('Then it should call the search method', () => {
+    test('Then it should call the search method', async () => {
       mockRepo.search.mockResolvedValue(['test']);
-      plantsController.add(mockPlantsComplete, mockResp, mockNext);
+      await plantsController.add(mockPlantsComplete, mockResp, mockNext);
       expect(mockRepo.search).toHaveBeenCalled();
     });
   });
