@@ -27,13 +27,12 @@ const plantSchema = new Schema<Plant>({
     type: String,
     required: true,
   },
-  difficult: {
+  difficulty: {
     type: String,
     required: true,
   },
   animalFriendly: {
     type: Boolean,
-    required: true,
   },
   creator: {
     type: Schema.Types.ObjectId,
