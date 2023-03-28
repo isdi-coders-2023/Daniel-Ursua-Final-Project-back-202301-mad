@@ -11,9 +11,10 @@ export interface CustomRequest extends Request {
 
 export abstract class Interceptors {
   static logged(req: CustomRequest, _resp: Response, next: NextFunction) {
+    debugger;
     try {
       debug('Logging...');
-
+      debugger;
       const authHeader = req.get('Authorization');
       if (!authHeader)
         throw new HTTPError(

@@ -30,6 +30,7 @@ export class PlantsMongoRepo implements PlantRepo {
     return data;
   }
   async findAll(page: number, elements: number): Promise<Plant[]> {
+    debugger;
     debug('Get all');
     const data = await PlantModel.find(
       {},
