@@ -3,7 +3,6 @@ import createDebug from 'debug';
 import { HTTPError } from '../errors/error.js';
 import { PlantRepo } from '../repositories/plants/plant.interface.js';
 import { CustomRequest } from '../interceptor/interceptor.js';
-import { nextTick } from 'process';
 
 const debug = createDebug('WFP:controller: plants');
 
