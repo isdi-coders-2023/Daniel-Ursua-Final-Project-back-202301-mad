@@ -42,6 +42,7 @@ export class PlantsController {
     }
   }
   async getAll(req: Request, resp: Response, next: NextFunction) {
+    debugger;
     try {
       debug('getAll: get');
       const page = req.params.page ? Number(req.params.page) : 1;
