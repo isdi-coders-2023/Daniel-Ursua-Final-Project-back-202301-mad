@@ -49,7 +49,9 @@ export class PlantsController {
       const elements = req.params.elements ? Number(req.params.elements) : 5;
       const result = await this.repo.findAll(page, elements);
       resp.status(200);
-      return result;
+      resp.json({
+        results: result,
+      });
     } catch (error) {
       next(error);
     }
