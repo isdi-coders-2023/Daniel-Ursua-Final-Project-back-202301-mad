@@ -86,4 +86,19 @@ export class PlantsController {
       next(error);
     }
   }
+  async deletePlant(req: Request, resp: Response, next: NextFunction) {
+    try {
+      debug('deleteId: delete');
+      if (!req.params.id) {
+        throw new HTTPError(404, 'Id not found', 'Id not found');
+      }
+      const result = await this.repo.deleteById(req.params.id);
+      resp.status(201);
+      resp.json({
+        results: [result],
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
 }

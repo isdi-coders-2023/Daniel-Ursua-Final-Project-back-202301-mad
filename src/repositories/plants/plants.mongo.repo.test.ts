@@ -46,6 +46,15 @@ describe('Given the plants mongo repo', () => {
       expect(element).toEqual(mockPlant);
     });
   });
+  describe('When we use the delete method', () => {
+    test('If there is an error in the data base, it should throw an error', () => {
+      (PlantModel.findByIdAndDelete as jest.Mock).mockReturnValue({
+        exec: jest.fn().mockResolvedValue(undefined),
+      });
+      const element = repo.deleteById('test id');
+      expect(element).rejects.toThrow();
+    });
+  });
   describe('When we use the findAll method', () => {
     test('If there is no data in the collection, it should throw an error', async () => {
       (PlantModel.find as jest.Mock).mockReturnValue({

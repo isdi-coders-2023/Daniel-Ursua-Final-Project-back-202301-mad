@@ -39,6 +39,12 @@ export const mockCustomReq = {
   },
 } as unknown as CustomRequest;
 
+export const mockReqId = {
+  params: {
+    id: 'test',
+  },
+} as unknown as Request;
+
 export const mockReq1 = {
   body: {
     passwd: 'test passwd',
@@ -191,4 +197,10 @@ export const mockEditPlant = {
 
 export const mockReqPa = {
   params: 'test',
+} as unknown as Request;
+
+export const mockReqPaId = {
+  params: {
+    id: '',
+  },
 } as unknown as Request;

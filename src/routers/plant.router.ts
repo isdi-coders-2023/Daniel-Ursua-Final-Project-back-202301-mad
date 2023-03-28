@@ -20,3 +20,8 @@ plantRouter.get(
   Interceptors.logged,
   controller.getById.bind(controller)
 );
+plantRouter.delete(
+  '/',
+  Interceptors.logged,
+  controller.deletePlant.bind(controller)
+);
