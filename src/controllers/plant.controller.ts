@@ -3,6 +3,7 @@ import createDebug from 'debug';
 import { HTTPError } from '../errors/error.js';
 import { PlantRepo } from '../repositories/plants/plant.interface.js';
 import { CustomRequest } from '../interceptor/interceptor.js';
+import { nextTick } from 'process';
 
 const debug = createDebug('WFP:controller: plants');
 
@@ -78,6 +79,21 @@ export class PlantsController {
       }
       debug('Id found');
       resp.status(302);
+      resp.json({
+        results: [result],
+      });
+    } catch (error) {
+      next(error);
+    }
+  }
+  async deletePlant(req: Request, resp: Response, next: NextFunction) {
+    try {
+      debug('deleteId: delete');
+      if (!req.params.id) {
+        throw new HTTPError(404, 'Id not found', 'Id not found');
+      }
+      const result = await this.repo.deleteById(req.params.id);
+      resp.status(201);
       resp.json({
         results: [result],
       });

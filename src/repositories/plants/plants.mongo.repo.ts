@@ -29,6 +29,16 @@ export class PlantsMongoRepo implements PlantRepo {
     const data = await PlantModel.find({ [query.key]: query.value }).exec();
     return data;
   }
+  async deleteById(id: string): Promise<void> {
+    debug('Delete');
+    const data = await PlantModel.findByIdAndDelete(id).exec();
+    if (!data)
+      throw new HTTPError(
+        404,
+        'Not found',
+        'Delete not possible: ID not found'
+      );
+  }
   async findAll(page: number, elements: number): Promise<Plant[]> {
     debug('Get all');
     const data = await PlantModel.find(

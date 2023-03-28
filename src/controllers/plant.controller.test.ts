@@ -10,6 +10,8 @@ import {
   mockReqPa,
   mockReqGetParams,
   mockReqGetParamsF,
+  mockReqId,
+  mockReqPaId,
 } from '../mocks/mockTest';
 
 const mockRepo = {
@@ -18,6 +20,7 @@ const mockRepo = {
   findAll: jest.fn(),
   edit: jest.fn(),
   findById: jest.fn(),
+  deleteById: jest.fn(),
 };
 
 const userRepoMock = {
@@ -138,6 +141,34 @@ describe('Given the get by id method', () => {
       expect(mockResp.json).toHaveBeenCalledWith({
         results: [mockPlantsComplete],
       });
+    });
+  });
+
+  describe('And there is an id', () => {
+    test('Then it should return the plant', async () => {
+      mockRepo.findById.mockResolvedValue(mockPlantsComplete);
+      await plantsController.getById(mockReqPa, mockResp, mockNext);
+      expect(mockResp.json).toHaveBeenCalledWith({
+        results: [mockPlantsComplete],
+      });
+    });
+  });
+});
+describe('Given the delete by id method', () => {
+  describe('And there is no id to delete', () => {
+    test('Then it should throw an error', async () => {
+      mockRepo.deleteById.mockReturnValue('test');
+      await plantsController.deletePlant(mockReqPaId, mockResp, mockNext);
+      expect(mockNext).toHaveBeenCalledWith(
+        new HTTPError(404, 'Id not found', 'Id not found')
+      );
+    });
+  });
+  describe('And there is an id to delete', () => {
+    test('Then it should throw a response', async () => {
+      mockRepo.deleteById.mockReturnValue('test');
+      await plantsController.deletePlant(mockReqId, mockResp, mockNext);
+      expect(mockResp.json).toHaveBeenCalled();
     });
   });
 });
