@@ -79,7 +79,7 @@ export class PlantsMongoRepo implements PlantRepo {
     if (!plantSelected) {
       throw new HTTPError(404, 'Not found', 'Register not found');
     }
-    debug('Register found!');
+    debug('ID found!');
     return plantSelected;
   }
 }
