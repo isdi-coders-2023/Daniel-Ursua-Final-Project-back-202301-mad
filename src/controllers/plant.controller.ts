@@ -45,7 +45,8 @@ export class PlantsController {
     debugger;
     try {
       debug('getAll: get');
-      const page = req.params.page ? Number(req.params.page) : 1;
+      const page = req.query.page ? Number(req.query.page) : 1;
+      debug(page);
       const elements = req.params.elements ? Number(req.params.elements) : 5;
       const result = await this.repo.findAll(page, elements);
       resp.status(200);
@@ -80,7 +81,6 @@ export class PlantsController {
         throw new HTTPError(404, 'Register not found', 'Id not found');
       }
       debug('Id found');
-      resp.status(302);
       resp.json({
         results: [result],
       });
@@ -90,7 +90,7 @@ export class PlantsController {
   }
   async deletePlant(req: Request, resp: Response, next: NextFunction) {
     try {
-      debug('deleteId: delete');
+      debug('deleteId: ', req.params.id);
       if (!req.params.id) {
         throw new HTTPError(404, 'Id not found', 'Id not found');
       }
