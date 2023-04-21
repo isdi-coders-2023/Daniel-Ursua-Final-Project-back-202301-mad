@@ -88,17 +88,13 @@ describe('Given the getAll method', () => {
   describe('And the request have the correct params', () => {
     test('It should call find all method with the params', async () => {
       await plantsController.getAll(mockReqGetParams, mockResp, mockNext);
-      //Test pendiente de revisar
-      //expect(mockRepo.findAll).toHaveBeenCalledWith(1, 1);
-      expect(true).toBe(true);
+      expect(mockRepo.findAll).toHaveBeenCalledWith(1, 1);
     });
   });
   describe('And the request do not have the correct params', () => {
     test('It should call find all method with default value', async () => {
       await plantsController.getAll(mockReqGetParamsF, mockResp, mockNext);
-      // Test pendiente de revisar
-      // expect(mockRepo.findAll).toHaveBeenCalledWith(1, 5);
-      expect(true).toBe(true);
+      expect(mockRepo.findAll).toHaveBeenCalledWith(1, 5);
     });
   });
   describe('And there is an error', () => {
