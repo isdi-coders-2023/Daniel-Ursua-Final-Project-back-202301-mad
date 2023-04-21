@@ -42,12 +42,11 @@ export class PlantsController {
     }
   }
   async getAll(req: Request, resp: Response, next: NextFunction) {
-    debugger;
     try {
       debug('getAll: get');
       const page = req.query.page ? Number(req.query.page) : 1;
       debug(page);
-      const elements = req.params.elements ? Number(req.params.elements) : 5;
+      const elements = req.query.elements ? Number(req.query.elements) : 5;
       const result = await this.repo.findAll(page, elements);
       resp.status(200);
       resp.json({

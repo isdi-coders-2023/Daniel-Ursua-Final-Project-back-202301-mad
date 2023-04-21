@@ -7,14 +7,14 @@ export const mockReqGet = {
 } as unknown as Request;
 
 export const mockReqGetParams = {
-  params: {
+  query: {
     page: 1,
     elements: 1,
   },
 } as unknown as Request;
 
 export const mockReqGetParamsF = {
-  params: {
+  query: {
     page: undefined,
     elements: undefined,
   },
