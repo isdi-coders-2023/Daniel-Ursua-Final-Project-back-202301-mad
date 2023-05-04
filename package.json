@@ -58,6 +58,7 @@
     "singleQuote": true
   },
   "dependencies": {
+    "husky": "^8.0.3",
     "ts-node": "^10.9.1"
   }
 }
